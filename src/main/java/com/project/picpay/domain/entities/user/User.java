@@ -11,6 +11,7 @@ public abstract class User {
     protected Email email;
     protected String password;
     protected String type_user;
+    protected Number amount;
 
 
     public String getUser_id() {
@@ -59,5 +60,13 @@ public abstract class User {
 
     public void setType_user(String type_user) {
         this.type_user = type_user;
+    }
+
+    public Number getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Number amount) {
+        this.amount = amount;
     }
 }
