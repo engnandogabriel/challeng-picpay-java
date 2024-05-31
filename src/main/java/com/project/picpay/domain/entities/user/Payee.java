@@ -18,7 +18,7 @@ public class Payee extends User {
     }
     public static Payee create(String name, String document, String email, String password, Double amount) throws Exception {
         String id = UUID.randomUUID().toString();
-        return new Payee(id, name, document, email, password, "payee", amount);
+        return new Payee(id, name, document, email, password, "merchant", amount);
     }
 
     public static Payee restore(String id, String name, String document, String email, String password, String typeUser, Double amount) throws Exception {

@@ -11,7 +11,7 @@ public abstract class User {
     protected Email email;
     protected String password;
     protected String type_user;
-    protected Number amount;
+    protected Double amount;
 
 
     public String getUser_id() {
@@ -66,7 +66,7 @@ public abstract class User {
         return amount;
     }
 
-    public void setAmount(Number amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }
