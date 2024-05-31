@@ -9,15 +9,15 @@ public class DocumentTest {
     @Test
     @DisplayName("Should create a new valid Document")
     void createDocument() throws Exception {
-        Document document = Document.create("628.031.203-80");
-        Assertions.assertEquals("628.031.203-80", document.getDocument());
+        Document document = Document.create("123-456-789-10");
+        Assertions.assertEquals("123.456.789-10", document.getDocument());
     }
 
     @Test
     @DisplayName("Should format and validate CPF document correctly")
     void testValidCPFDocument() throws Exception {
-        Document document = Document.create("62803120380");
-        Assertions.assertEquals("628.031.203-80", document.getDocument());
+        Document document = Document.create("12345678910");
+        Assertions.assertEquals("123.456.789-10", document.getDocument());
     }
 
     @Test
@@ -34,5 +34,11 @@ public class DocumentTest {
             Document.create("invalid");
         });
         Assertions.assertEquals("Invalid document! Must be 11 digits (CPF) or 14 digits (CNPJ)!", exception.getMessage());
+    }
+    @Test
+    @DisplayName("Should be restore a document")
+    void testRestoreEmail(){
+        Document document = Document.restore("123.456.789.10");
+        Assertions.assertEquals("123.456.789.10", document.getDocument());
     }
 }
