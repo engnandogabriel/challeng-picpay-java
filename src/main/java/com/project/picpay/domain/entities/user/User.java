@@ -64,7 +64,7 @@ public abstract class User {
         this.type_user = type_user;
     }
 
-    public Number getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
