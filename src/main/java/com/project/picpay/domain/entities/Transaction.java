@@ -20,7 +20,7 @@ public class Transaction {
     public static Transaction create(Number value, User payer, User payee) throws Exception{
         String id = UUID.randomUUID().toString();
         if(value.doubleValue() <= 0) throw new Exception("Invalid amount!");
-        if()
+//        if()
         return new Transaction(id, value, payer.getUser_id(), payee.getUser_id());
     }
 }

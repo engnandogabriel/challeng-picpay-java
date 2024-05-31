@@ -14,7 +14,7 @@ public class Payee extends User {
         this.email = Email.create(email);
         this.password = password;
         this.type_user = typeUser;
-        this.amount = amount
+        this.amount = amount;
     }
     public static Payee create(String name, String document, String email, String password, Number amount) throws Exception {
         String id = UUID.randomUUID().toString();
