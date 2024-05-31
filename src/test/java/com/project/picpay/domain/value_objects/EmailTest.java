@@ -12,6 +12,10 @@ public class EmailTest {
         Email email = Email.create("johndoe@gmail.com");
         Assertions.assertEquals("johndoe@gmail.com", email.getEmail());
     }
+    void restoreEmail () throws Exception{
+        Email email = Email.restore("johndoe@gmail.com");
+        Assertions.assertEquals("johndoe@gmail.com", email.getEmail());
+    }
     @Test
     @DisplayName("Should be throws a Exception: E-mail is invalid!")
     void testeEmail() {
