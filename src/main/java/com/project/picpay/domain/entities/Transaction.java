@@ -1,5 +1,6 @@
 package com.project.picpay.domain.entities;
 
+import com.project.picpay.domain.Exception.InvalidParamError;
 import com.project.picpay.domain.entities.user.Commun;
 import com.project.picpay.domain.entities.user.Merchant;
 
@@ -20,10 +21,10 @@ public class Transaction {
 
     public static Transaction create(Double value, Commun payer, Merchant payee) throws Exception {
         String id = UUID.randomUUID().toString();
-        if (value <= 0) throw new Exception("Invalid amount!");
-        if (!payer.getType_user().equals("commun")) throw new Exception("Payer most be commun");
+        if (value <= 0) throw new InvalidParamError("Invalid amount!");
+        if (!payer.getType_user().equals("commun")) throw new InvalidParamError("Payer most be commun");
         if (payer.getAmount() < value) {
-            throw new Exception("Insufficient payer amount");
+            throw new InvalidParamError("Insufficient payer amount");
         }
         payer.discountValue(value);
         payee.addAmount(value);

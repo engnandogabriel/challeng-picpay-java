@@ -1,5 +1,6 @@
 package com.project.picpay.domain.entities.user;
 
+import com.project.picpay.domain.Exception.InvalidOperation;
 import com.project.picpay.domain.value_objects.Document;
 import com.project.picpay.domain.value_objects.Email;
 import com.project.picpay.domain.value_objects.Name;
@@ -30,6 +31,6 @@ public class Merchant extends User {
     }
     @Override
     public void discountValue(Double value) throws Exception{
-        throw new Exception("You do not have permission for this action");
+        throw new InvalidOperation("You do not have permission for this action");
     }
 }

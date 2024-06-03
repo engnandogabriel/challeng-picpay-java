@@ -3,6 +3,7 @@ package com.project.picpay.application.useCases;
 import com.project.picpay.application.repository.IUserRepository;
 import com.project.picpay.domain.DTO.Response;
 import com.project.picpay.domain.DTO.UserDTO;
+import com.project.picpay.domain.Exception.InvalidParamError;
 import com.project.picpay.domain.HandlerService.HandlerDTO;
 import com.project.picpay.domain.HandlerService.Handlers;
 import com.project.picpay.domain.entities.user.User;
@@ -23,10 +24,10 @@ public class CreateUser {
         try {
             Optional<User> emailExist = this.userRepository.getByEmail(userDTO.email());
             if (emailExist.isPresent())
-                throw new Exception("A user already exists with this email");
+                throw new InvalidParamError("A user already exists with this email");
             Optional<User> documentExist = this.userRepository.getByDocument(userDTO.document());
             if (documentExist.isPresent())
-                throw new Exception("A user already exists with this document");
+                throw new InvalidParamError("A user already exists with this document");
             User user = UserFactory.create(userDTO.type_user(), userDTO.name(), userDTO.document(), userDTO.email(), userDTO.password(), userDTO.value().doubleValue());
             this.userRepository.save(user);
             return new Handlers<String>().success("Sucesso");

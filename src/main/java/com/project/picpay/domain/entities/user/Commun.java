@@ -1,5 +1,6 @@
 package com.project.picpay.domain.entities.user;
 
+import com.project.picpay.domain.Exception.InvalidParamError;
 import com.project.picpay.domain.value_objects.Document;
 import com.project.picpay.domain.value_objects.Email;
 import com.project.picpay.domain.value_objects.Name;
@@ -33,7 +34,7 @@ public class Commun extends User {
 
     @Override
     public void discountValue(Double value) throws Exception{
-        if(this.amount < value) throw new Exception("Can not be disconted value");
+        if(this.amount < value) throw new InvalidParamError("Can not be disconted value");
         this.amount -= value;
     }
 
