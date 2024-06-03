@@ -1,5 +1,7 @@
 package com.project.picpay.domain.value_objects;
 
+import com.project.picpay.domain.Exception.InvalidParamError;
+
 public class Name {
     private String name;
 
@@ -28,6 +30,6 @@ public class Name {
         if (name.matches("[a-zA-Z\\s]+")) {
             return name;
         }
-        throw new Exception("Invalid name!");
+        throw new InvalidParamError("Invalid name!");
     }
 }

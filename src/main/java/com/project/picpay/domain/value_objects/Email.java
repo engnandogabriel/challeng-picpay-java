@@ -1,5 +1,7 @@
 package com.project.picpay.domain.value_objects;
 
+import com.project.picpay.domain.Exception.InvalidParamError;
+
 public class Email {
     private String email;
 
@@ -27,6 +29,6 @@ public class Email {
     private static String validEmail(String email) throws Exception {
         email = email.replace(" ", "");
         if (email.contains("@") && email.contains(".com")) return email;
-        throw new Exception("E-mail is invalid!");
+        throw new InvalidParamError("E-mail is invalid!");
     }
 }

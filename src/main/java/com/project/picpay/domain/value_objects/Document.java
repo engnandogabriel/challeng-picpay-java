@@ -1,5 +1,7 @@
 package com.project.picpay.domain.value_objects;
 
+import com.project.picpay.domain.Exception.InvalidParamError;
+
 public class Document {
     private String document;
 
@@ -31,7 +33,7 @@ public class Document {
         if (document.length() == 14)
             return formatCNPJ(document);
 
-        throw new Exception("Invalid document! Must be 11 digits (CPF) or 14 digits (CNPJ)!");
+        throw new InvalidParamError("Invalid document! Must be 11 digits (CPF) or 14 digits (CNPJ)!");
 
     }
 
