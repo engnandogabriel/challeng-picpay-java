@@ -19,13 +19,13 @@ public class UserRepositoryDataBase implements IUserRepository {
     }
 
     @Override
-    public void save(User user){
+    public void save(User user) {
         UserModel userModel = new UserModel(user.getUser_id(), user.getName(), user.getDocument(), user.getEmail(), user.getPassword(), user.getType_user(), user.getAmount());
         this.userJPA.save(userModel);
     }
 
     @Override
-    public Optional<User> getByEmail(String email) throws Exception  {
+    public Optional<User> getByEmail(String email) throws Exception {
         UserModel userModel = this.userJPA.getByEmail(email);
         if (userModel != null) {
             User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
