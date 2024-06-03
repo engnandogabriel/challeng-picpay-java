@@ -19,7 +19,7 @@ public class UserRepositoryDataBase implements IUserRepository {
     }
 
     @Override
-    public void save(User user) throws RuntimeException {
+    public void save(User user){
         UserModel userModel = new UserModel(user.getUser_id(), user.getName(), user.getDocument(), user.getEmail(), user.getPassword(), user.getType_user(), user.getAmount());
         this.userJPA.save(userModel);
     }
