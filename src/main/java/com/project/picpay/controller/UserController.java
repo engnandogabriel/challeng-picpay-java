@@ -3,6 +3,8 @@ package com.project.picpay.controller;
 import com.project.picpay.application.useCases.CreateUser;
 import com.project.picpay.domain.DTO.Response;
 import com.project.picpay.domain.DTO.UserDTO;
+import com.project.picpay.domain.HandlerService.HandlerDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +22,9 @@ public class UserController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<?> save(@RequestBody UserDTO userDTO) {
-        Response output = this.createUser.execute(userDTO);
-        return ResponseEntity.ok(output);
+    public ResponseEntity<HandlerDTO> save(@RequestBody UserDTO userDTO) {
+        HandlerDTO output = this.createUser.execute(userDTO);
+        return new ResponseEntity<>(output, output.status());
 
     }
 }
