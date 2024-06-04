@@ -9,4 +9,5 @@ public interface IUserRepository {
     Optional<User> getByEmail(String email) throws Exception;
     Optional<User> getByDocument(String document) throws Exception;
     Optional<User> getById(String id) throws Exception;
+    void changeAmount(User user);
 }
