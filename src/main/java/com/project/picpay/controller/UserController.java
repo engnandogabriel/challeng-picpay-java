@@ -25,7 +25,7 @@ public class UserController {
     @PostMapping(value = "")
     public ResponseEntity<HandlerDTO> save(@RequestBody UserDTO userDTO) {
         HandlerDTO output = this.createUser.execute(userDTO);
-        return ResponseEntity.ok(output);
+        return new ResponseEntity<>(output, output.status());
 
     }
 }
