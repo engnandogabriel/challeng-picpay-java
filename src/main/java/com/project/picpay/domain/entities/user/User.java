@@ -13,8 +13,8 @@ public abstract class User {
     protected String type_user;
     protected Double amount;
 
-    abstract void addAmount(Double value);
-    abstract void discountValue(Double value) throws Exception;
+    public abstract void addAmount(Double value) throws Exception;
+    public abstract void discountValue(Double value) throws Exception;
 
     public String getUser_id() {
         return user_id;
