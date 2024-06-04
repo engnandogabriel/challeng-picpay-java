@@ -55,5 +55,10 @@ public class UserRepositoryDataBase implements IUserRepository {
         return Optional.empty();
     }
 
+    @Override
+    public void changeAmount(User user) {
+        this.userJPA.changeAmount(user.getAmount(), user.getUser_id());
+    }
+
 }
 
