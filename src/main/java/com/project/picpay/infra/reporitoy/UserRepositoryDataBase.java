@@ -26,8 +26,9 @@ public class UserRepositoryDataBase implements IUserRepository {
 
     @Override
     public Optional<User> getByEmail(String email) throws Exception {
-        UserModel userModel = this.userJPA.getByEmail(email);
-        if (userModel != null) {
+        Optional<UserModel> userModelDB = this.userJPA.getByEmail(email);
+        if (userModelDB.isPresent()) {
+            UserModel userModel = userModelDB.get();
             User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
             return Optional.of(user);
         }
@@ -36,19 +37,19 @@ public class UserRepositoryDataBase implements IUserRepository {
 
     @Override
     public Optional<User> getByDocument(String document) throws Exception {
-        UserModel userModel = this.userJPA.getByDocument(document);
-        if (userModel != null) {
+        Optional<UserModel> userModelDB = this.userJPA.getByDocument(document);
+        if (userModelDB != null) {
+            UserModel userModel = userModelDB.get();
             User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
             return Optional.of(user);
         }
         return Optional.empty();
     }
 
-    @Override
-    public Optional<User> getById(String id) throws Exception{
-
-        UserModel userModel = this.userJPA.getById(id);
-        if (userModel != null) {
+    public Optional<User> getById(String id) throws Exception {
+        Optional<UserModel> userModelDB = this.userJPA.findById(id);
+        if (userModelDB.isPresent()) {
+            UserModel userModel = userModelDB.get();
             User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
             return Optional.of(user);
         }
