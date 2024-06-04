@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface UserJPA extends JpaRepository<UserModel, String > {
-    UserModel getByEmail(String email);
-    UserModel getByDocument(String document);
+    Optional<UserModel> getByEmail(String email);
+    Optional<UserModel> getByDocument(String document);
 
     @Modifying
     @Transactional
