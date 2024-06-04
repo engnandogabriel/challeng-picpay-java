@@ -8,13 +8,13 @@ import com.project.picpay.domain.entities.user.User;
 import java.util.UUID;
 
 public class Transaction {
-    private String tranfer_id;
+    private String transfer_id;
     private Double value;
     private String payer;
     private String payee;
 
     private Transaction(String id, Double value, String payer, String payee) {
-        this.tranfer_id = id;
+        this.transfer_id = id;
         this.value = value;
         this.payer = payer;
         this.payee = payee;
@@ -35,12 +35,13 @@ public class Transaction {
     public static Transaction restore(String id, Double value, String payer, String payee){
         return new Transaction(id, value, payer, payee);
     }
-    public String getTranfer_id() {
-        return tranfer_id;
+
+    public String getTransfer_id() {
+        return transfer_id;
     }
 
-    public void setTranfer_id(String tranfer_id) {
-        this.tranfer_id = tranfer_id;
+    public void setTransfer_id(String transfer_id) {
+        this.transfer_id = transfer_id;
     }
 
     public Number getValue() {
@@ -65,5 +66,15 @@ public class Transaction {
 
     public void setPayee(String payee) {
         this.payee = payee;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "tranfer_id='" + transfer_id + '\'' +
+                ", value=" + value +
+                ", payer='" + payer + '\'' +
+                ", payee='" + payee + '\'' +
+                '}';
     }
 }
