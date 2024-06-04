@@ -32,6 +32,9 @@ public class Transaction {
         return new Transaction(id, value, payer.getUser_id(), payee.getUser_id());
     }
 
+    public static Transaction restore(String id, Double value, String payer, String payee){
+        return new Transaction(id, value, payer, payee);
+    }
     public String getTranfer_id() {
         return tranfer_id;
     }
