@@ -3,8 +3,8 @@ package com.project.picpay.infra.reporitoy;
 import com.project.picpay.application.repository.IUserRepository;
 import com.project.picpay.domain.entities.user.User;
 import com.project.picpay.domain.entities.user.UserFactory;
-import com.project.picpay.infra.database.UserJPA;
-import com.project.picpay.infra.database.UserModel;
+import com.project.picpay.infra.database.User.UserJPA;
+import com.project.picpay.infra.database.User.UserModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
