@@ -30,7 +30,7 @@ public class CreateUser {
                 throw new InvalidParamError("A user already exists with this document");
             User user = UserFactory.create(userDTO.type_user(), userDTO.name(), userDTO.document(), userDTO.email(), userDTO.password(), userDTO.value().doubleValue());
             this.userRepository.save(user);
-            return new Handlers<String>().success("Sucesso");
+            return new Handlers<String>().success("Success");
         } catch (RuntimeException e) {
             return new Handlers<>().servrError(e);
         } catch (Exception e) {
