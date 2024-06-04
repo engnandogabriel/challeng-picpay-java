@@ -3,6 +3,7 @@ package com.project.picpay.domain.entities;
 import com.project.picpay.domain.Exception.InvalidParamError;
 import com.project.picpay.domain.entities.user.Commun;
 import com.project.picpay.domain.entities.user.Merchant;
+import com.project.picpay.domain.entities.user.User;
 
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class Transaction {
         this.payee = payee;
     }
 
-    public static Transaction create(Double value, Commun payer, Merchant payee) throws Exception {
+    public static Transaction create(Double value, User payer, User payee) throws Exception {
         String id = UUID.randomUUID().toString();
         if (value <= 0) throw new InvalidParamError("Invalid amount!");
         if (!payer.getType_user().equals("commun")) throw new InvalidParamError("Payer most be commun");
