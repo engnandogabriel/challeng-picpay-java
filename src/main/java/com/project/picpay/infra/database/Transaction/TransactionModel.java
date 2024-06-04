@@ -1,14 +1,15 @@
 package com.project.picpay.infra.database.Transaction;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "transfers")
 public class TransactionModel {
-    @Column(name = "tranfer_id")
-    private String tranfer_id;
+    @Id
+    @Column(name = "transfer_id")
+    private String transfer_id;
     @Column(name = "value")
     private Double value;
     @Column(name = "payer")
@@ -16,19 +17,20 @@ public class TransactionModel {
     @Column(name = "payee")
     private String payee;
 
-    public TransactionModel(String tranfer_id, Double value, String payer, String payee) {
-        this.tranfer_id = tranfer_id;
+    public TransactionModel(){}
+    public TransactionModel(String transfer_id, Double value, String payer, String payee) {
+        this.transfer_id = transfer_id;
         this.value = value;
         this.payer = payer;
         this.payee = payee;
     }
 
-    public String getTranfer_id() {
-        return tranfer_id;
+    public String getTransfer_id() {
+        return transfer_id;
     }
 
-    public void setTranfer_id(String tranfer_id) {
-        this.tranfer_id = tranfer_id;
+    public void setTransfer_id(String transfer_id) {
+        this.transfer_id = transfer_id;
     }
 
     public Double getValue() {
@@ -53,5 +55,15 @@ public class TransactionModel {
 
     public void setPayee(String payee) {
         this.payee = payee;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionModel{" +
+                "transfer_id='" + transfer_id + '\'' +
+                ", value=" + value +
+                ", payer='" + payer + '\'' +
+                ", payee='" + payee + '\'' +
+                '}';
     }
 }
