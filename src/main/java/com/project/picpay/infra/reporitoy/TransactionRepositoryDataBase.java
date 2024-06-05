@@ -17,9 +17,7 @@ public class TransactionRepositoryDataBase implements ITransactionRepository {
 
     @Override
     public void save(Transaction transaction) {
-        System.out.println(transaction.toString());
         TransactionModel transactionModel = new TransactionModel(transaction.getTransfer_id(), transaction.getValue().doubleValue(), transaction.getPayer(), transaction.getPayee());
-        System.out.println(transaction.toString());
         this.transactionJPA.save(transactionModel);
     }
 
