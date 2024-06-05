@@ -32,7 +32,7 @@ public class Transaction {
         return new Transaction(id, value, payer.getUser_id(), payee.getUser_id());
     }
 
-    public static Transaction restore(String id, Double value, String payer, String payee){
+    public static Transaction restore(String id, Double value, String payer, String payee) {
         return new Transaction(id, value, payer, payee);
     }
 
@@ -68,13 +68,4 @@ public class Transaction {
         this.payee = payee;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "tranfer_id='" + transfer_id + '\'' +
-                ", value=" + value +
-                ", payer='" + payer + '\'' +
-                ", payee='" + payee + '\'' +
-                '}';
-    }
 }
