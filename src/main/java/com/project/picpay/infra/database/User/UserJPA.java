@@ -12,6 +12,7 @@ public interface UserJPA extends JpaRepository<UserModel, String > {
     Optional<UserModel> getByEmail(String email);
     Optional<UserModel> getByDocument(String document);
 
+
     @Modifying
     @Transactional
     @Query("UPDATE UserModel u SET u.amount = :amount WHERE u.user_id = :user_id")
