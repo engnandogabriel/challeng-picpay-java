@@ -28,12 +28,18 @@ public class CreateTransaction {
 
     public HandlerDTO execute(TransactionDTO transactionDTO) {
         try {
-            User payer = this.userRepository.getById(transactionDTO.payer()).orElseThrow(() -> new NotFoundError("Payer not found"));
-            User payee = this.userRepository.getById(transactionDTO.payee()).orElseThrow(() -> new NotFoundError("Payee not found"));
-            Transaction transaction = Transaction.create(transactionDTO.value().doubleValue(), payer, payee);
+            Optional<User> payer = this.userRepository.getById(transactionDTO.payer());
+            if(payer.isEmpty()){
+                return new Handlers<>().notFound(new NotFoundError("Payer not found"));
+            }
+            Optional<User> payee = this.userRepository.getById(transactionDTO.payee());
+            if(payee.isEmpty()){
+                return new Handlers<>().notFound(new NotFoundError("Payee not found"));
+            }
+            Transaction transaction = Transaction.create(transactionDTO.value().doubleValue(), payer.get(), payee.get());
             if(!this.authorizationGateway.authorize()) throw new Unauthorized("You do not have authorization");
-            this.userRepository.changeAmount(payer);
-            this.userRepository.changeAmount(payee);
+            this.userRepository.changeAmount(payer.get());
+            this.userRepository.changeAmount(payee.get());
             this.transactionRepository.save(transaction);
             return new Handlers<>().success(transaction);
         } catch (RuntimeException e) {

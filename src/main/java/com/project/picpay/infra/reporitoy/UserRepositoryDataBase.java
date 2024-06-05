@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+
 @Repository
 public class UserRepositoryDataBase implements IUserRepository {
 
@@ -41,7 +42,7 @@ public class UserRepositoryDataBase implements IUserRepository {
         if (userModelDB != null) {
             UserModel userModel = userModelDB.get();
             User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
-            return Optional.of(user);
+            return of(user);
         }
         return Optional.empty();
     }
