@@ -1,14 +1,12 @@
 package com.project.picpay.controller;
 
 import com.project.picpay.application.useCases.CreateUser;
+import com.project.picpay.application.useCases.GetAllUsers;
 import com.project.picpay.domain.DTO.Response;
 import com.project.picpay.domain.DTO.UserDTO;
 import com.project.picpay.domain.HandlerService.HandlerDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Handler;
 
@@ -17,9 +15,17 @@ import java.util.logging.Handler;
 public class UserController {
 
     private CreateUser createUser;
+    private GetAllUsers getAllUsers;
 
-    public UserController(CreateUser createUser) {
+    public UserController(CreateUser createUser, GetAllUsers getAllUsers) {
         this.createUser = createUser;
+        this.getAllUsers = getAllUsers;
+    }
+
+    @GetMapping(value = "")
+    public ResponseEntity<HandlerDTO> getALl() {
+        HandlerDTO output = this.getAllUsers.execute();
+        return new ResponseEntity<>(output, output.status());
     }
 
     @PostMapping(value = "")
