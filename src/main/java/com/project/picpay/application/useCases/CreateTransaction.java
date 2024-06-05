@@ -37,7 +37,7 @@ public class CreateTransaction {
                 return new Handlers<>().notFound(new NotFoundError("Payee not found"));
             }
             Transaction transaction = Transaction.create(transactionDTO.value().doubleValue(), payer.get(), payee.get());
-            if(!this.authorizationGateway.authorize()) throw new Unauthorized("You do not have authorization");
+            if(!this.authorizationGateway.authorize()) return new Handlers<>().unauthorizedError(new Unauthorized("You do not have authorization"));
             this.userRepository.changeAmount(payer.get());
             this.userRepository.changeAmount(payee.get());
             this.transactionRepository.save(transaction);

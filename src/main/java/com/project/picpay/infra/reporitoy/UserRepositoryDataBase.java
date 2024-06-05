@@ -42,7 +42,7 @@ public class UserRepositoryDataBase implements IUserRepository {
         if (userModelDB != null) {
             UserModel userModel = userModelDB.get();
             User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
-            return of(user);
+            return Optional.of(user);
         }
         return Optional.empty();
     }
