@@ -10,6 +10,7 @@ import com.project.picpay.domain.HandlerService.Handlers;
 import com.project.picpay.domain.entities.Transaction;
 import com.project.picpay.domain.entities.user.User;
 import com.project.picpay.domain.gateway.AuthorizationGateway;
+import com.project.picpay.domain.gateway.EmailGateway;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,11 +20,13 @@ public class CreateTransaction {
     private ITransactionRepository transactionRepository;
     private IUserRepository userRepository;
     private AuthorizationGateway authorizationGateway;
+    private EmailGateway emailGateway;
 
-    public CreateTransaction(ITransactionRepository transactionRepository, IUserRepository userRepository, AuthorizationGateway authorizationGateway) {
+    public CreateTransaction(ITransactionRepository transactionRepository, IUserRepository userRepository, AuthorizationGateway authorizationGateway, EmailGateway emailGateway) {
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
         this.authorizationGateway = authorizationGateway;
+        this.emailGateway = emailGateway;
     }
 
     public HandlerDTO execute(TransactionDTO transactionDTO) {
@@ -41,6 +44,7 @@ public class CreateTransaction {
             this.userRepository.changeAmount(payer.get());
             this.userRepository.changeAmount(payee.get());
             this.transactionRepository.save(transaction);
+            this.emailGateway.sender(payer.get(), payee.get(), transactionDTO.value().doubleValue());
             return new Handlers<>().success(transaction);
         } catch (RuntimeException e) {
             return new Handlers<>().servrError(e);
