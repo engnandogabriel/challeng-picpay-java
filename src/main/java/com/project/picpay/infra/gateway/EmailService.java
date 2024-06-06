@@ -2,15 +2,14 @@ package com.project.picpay.infra.gateway;
 
 import com.project.picpay.domain.entities.user.User;
 import com.project.picpay.domain.gateway.EmailGateway;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class EmailService implements EmailGateway {
     private final String EMAIL_SERVICE_URL = "https://util.devi.tools/api/v1/notify";
 
@@ -25,8 +24,8 @@ public class EmailService implements EmailGateway {
         emailData.put("body", this.message(from, to, value));
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(emailData, headers);
-        new RestTemplate().postForEntity(EMAIL_SERVICE_URL, requestEntity, String.class);
-        System.out.println(emailData.toString());
+        ResponseEntity<String> response = new RestTemplate().postForEntity(EMAIL_SERVICE_URL, requestEntity, String.class);
+        if(response.getStatusCode() == HttpStatus.NO_CONTENT) System.out.println(emailData.get("body").toString());
     }
 
     private String message(User from, User to, Double value) {
