@@ -4,6 +4,7 @@ import com.project.picpay.domain.entities.user.User;
 import com.project.picpay.domain.gateway.EmailGateway;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -15,17 +16,26 @@ public class EmailService implements EmailGateway {
 
     @Override
     public void sender(User from, User to, Double value) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Map<String, String> emailData = new HashMap<>();
-        emailData.put("to", to.getEmail());
-        emailData.put("subject", "Transferência Bancária Recebida");
-        emailData.put("body", this.message(from, to, value));
+            Map<String, String> emailData = new HashMap<>();
+            emailData.put("to", to.getEmail());
+            emailData.put("subject", "Transferência Bancária Recebida");
+            emailData.put("body", this.message(from, to, value));
 
-        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(emailData, headers);
-        ResponseEntity<String> response = new RestTemplate().postForEntity(EMAIL_SERVICE_URL, requestEntity, String.class);
-        if(response.getStatusCode() == HttpStatus.NO_CONTENT) System.out.println(emailData.get("body").toString());
+            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(emailData, headers);
+            ResponseEntity<String> response = new RestTemplate().postForEntity(EMAIL_SERVICE_URL, requestEntity, String.class);
+            if (response.getStatusCode() == HttpStatus.NO_CONTENT) System.out.println(emailData.get("body").toString());
+
+        } catch (HttpServerErrorException.GatewayTimeout e) {
+            // Lidar com o erro de tempo limite do gateway aqui
+            System.out.println("O serviço de e-mail está temporariamente indisponível. Tente novamente mais tarde.");
+        } catch (Exception e) {
+            // Lidar com outros erros de maneira genérica aqui
+            System.out.println("Ocorreu um erro ao enviar o e-mail: " + e.getMessage());
+        }
     }
 
     private String message(User from, User to, Double value) {
