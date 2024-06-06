@@ -2,6 +2,7 @@ package com.project.picpay.application.useCases;
 
 import com.project.picpay.application.repository.IUserRepository;
 import com.project.picpay.domain.DTO.UserDTO;
+import com.project.picpay.domain.Exception.InvalidParamError;
 import com.project.picpay.domain.Exception.NotFoundError;
 import com.project.picpay.domain.HandlerService.HandlerDTO;
 import com.project.picpay.domain.HandlerService.Handlers;
@@ -23,10 +24,10 @@ public class CreateUser {
         try {
             Optional<User> emailExist = this.userRepository.getByEmail(userDTO.email());
             if (emailExist.isPresent())
-                return new Handlers<String>().badRquest(new NotFoundError("Payer not found"));
+                return new Handlers<String>().badRquest(new InvalidParamError("Email"));
             Optional<User> documentExist = this.userRepository.getByDocument(userDTO.document());
             if (documentExist.isPresent())
-                return new Handlers<String>().badRquest(new NotFoundError("Payee not found"));
+                return new Handlers<String>().badRquest(new InvalidParamError("Document"));
             User user = UserFactory.create(userDTO.type_user(), userDTO.name(), userDTO.document(), userDTO.email(), userDTO.password(), userDTO.value().doubleValue());
             this.userRepository.save(user);
             return new Handlers<String>().success("Success");
