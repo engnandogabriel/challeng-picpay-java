@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UserJPA extends JpaRepository<UserModel, String > {
-    Optional<UserModel> getByEmail(String email);
-    Optional<UserModel> getByDocument(String document);
+    Optional<UserModel> findByEmail(String email);
+    Optional<UserModel> findByDocument(String document);
 
 
     @Modifying
