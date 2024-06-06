@@ -1,12 +1,10 @@
 package com.project.picpay.infra.reporitoy;
-
 import com.project.picpay.application.repository.IUserRepository;
 import com.project.picpay.domain.entities.user.User;
 import com.project.picpay.domain.entities.user.UserFactory;
 import com.project.picpay.infra.database.User.UserJPA;
 import com.project.picpay.infra.database.User.UserModel;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
 @Repository
@@ -26,34 +24,25 @@ public class UserRepositoryDataBase implements IUserRepository {
 
     @Override
     public Optional<User> getByEmail(String email) throws Exception {
-        Optional<UserModel> userModelDB = this.userJPA.getByEmail(email);
-        if (userModelDB.isPresent()) {
-            UserModel userModel = userModelDB.get();
-            User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
-            return Optional.of(user);
-        }
-        return Optional.empty();
+        UserModel userModel = this.userJPA.findByEmail(email).orElse(null);
+        if (userModel == null) return Optional.empty();
+        User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
+        return Optional.of(user);
     }
 
     @Override
     public Optional<User> getByDocument(String document) throws Exception {
-        Optional<UserModel> userModelDB = this.userJPA.getByDocument(document);
-        if (userModelDB != null) {
-            UserModel userModel = userModelDB.get();
-            User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
-            return Optional.of(user);
-        }
-        return Optional.empty();
+        UserModel userModel = this.userJPA.findByDocument(document).orElse(null);
+        if (userModel == null) return Optional.empty();
+        User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
+        return Optional.of(user);
     }
 
     public Optional<User> getById(String id) throws Exception {
-        Optional<UserModel> userModelDB = this.userJPA.findById(id);
-        if (userModelDB.isPresent()) {
-            UserModel userModel = userModelDB.get();
-            User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
-            return Optional.of(user);
-        }
-        return Optional.empty();
+        UserModel userModel = this.userJPA.findById(id).orElse(null);
+        if (userModel == null) return Optional.empty();
+        User user = UserFactory.restore(userModel.getType_user(), userModel.getId(), userModel.getName(), userModel.getDocument(), userModel.getEmail(), userModel.getPassword(), userModel.getAmount());
+        return Optional.of(user);
     }
 
     @Override
