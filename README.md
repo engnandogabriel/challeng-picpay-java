@@ -6,6 +6,8 @@ Olá! 👋 Meu nome é Nando Gabriel e esta é minha solução para o desafio t�
 
 Neste projeto, desenvolvi uma aplicação backend de acordo com o desafio proposto pelo PicPay Simplificado, seguindo os requisitos fornecidos no desafio. Optei por utilizar Java devido à minha experiência prévia e para pratica da linguagem.
 
+[link do repositório](https://github.com/PicPay/picpay-desafio-backend)
+
 ## Tecnologias Utilizadas
 
 - Java Spring Boot
